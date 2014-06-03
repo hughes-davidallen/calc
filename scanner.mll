@@ -8,3 +8,7 @@ rule token =
       | '/'                  { DIVIDE }
       | ['0'-'9']+ as lit    { LITERAL(int_of_string lit) }
       | eof                  { EOF }
+      | "/*"                 { comment lexbuf }
+and comment = 
+  parse "*/"                 { token lexbuf }
+      | _                    { comment lexbuf }

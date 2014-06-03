@@ -1,6 +1,6 @@
 %{ open Ast %}
 
-%token PLUS MINUS TIMES DIVIDE EOF
+%token PLUS MINUS TIMES DIVIDE LPAREN RPAREN EOF
 %token <int> LITERAL
 
 %left PLUS MINUS
@@ -13,7 +13,8 @@
 %%
 
 expr:
-  expr PLUS expr          { Binop($1, Add, $3) }
+  LPAREN expr RPAREN      { $2 }
+| expr PLUS expr          { Binop($1, Add, $3) }
 | expr MINUS expr         { Binop($1, Sub, $3) }
 | expr TIMES expr         { Binop($1, Mul, $3) }
 | expr DIVIDE expr        { Binop($1, Div, $3) }

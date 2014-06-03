@@ -2,6 +2,10 @@ open Ast
 
 let rec eval = function
     Lit(x) -> x
+  | Unop(op, e1) ->
+      (let v1 = eval e1 in
+      match op with
+        Neg -> -v1)
   | Binop(e1, op, e2) ->
       let v1 = eval e1 and v2 = eval e2 in
       match op with

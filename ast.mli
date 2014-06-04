@@ -1,7 +1,10 @@
 type binop = Add | Sub | Mul | Div | Mod
+type fpbinop = FPAdd | FPSub | FPDiv
 type unop = Neg
 
 type expr =
     Binop of expr * binop * expr
+  | FPBinop of expr * fpbinop * expr
   | Unop of unop * expr
-  | Lit of int
+  | Integer of int
+  | Float of float

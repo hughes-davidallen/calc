@@ -1,7 +1,8 @@
 open Ast
 
 let rec eval = function
-    Lit(x) -> x
+    Integer(x) -> x
+  | Float(x) -> x
   | Unop(op, e1) ->
       (let v1 = eval e1 in
       match op with

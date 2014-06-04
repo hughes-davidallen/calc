@@ -1,10 +1,10 @@
 %{ open Ast %}
 
-%token PLUS MINUS TIMES DIVIDE LPAREN RPAREN EOF
+%token PLUS MINUS TIMES DIVIDE MOD LPAREN RPAREN EOF
 %token <int> LITERAL
 
 %left PLUS MINUS
-%left TIMES DIVIDE
+%left TIMES DIVIDE MOD
 %nonassoc UMINUS
 
 %start expr
@@ -18,5 +18,6 @@ expr:
 | expr MINUS expr         { Binop($1, Sub, $3) }
 | expr TIMES expr         { Binop($1, Mul, $3) }
 | expr DIVIDE expr        { Binop($1, Div, $3) }
+| expr MOD expr           { Binop($1, Mod, $3) }
 | MINUS expr %prec UMINUS { Unop(Neg, $2) }
 | LITERAL                 { Lit($1) }

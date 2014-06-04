@@ -13,6 +13,7 @@ let rec eval = function
       | Sub -> v1 - v2
       | Mul -> v1 * v2
       | Div -> v1 / v2
+      | Mod -> v1 mod v2
 
 let _ =
   let lexbuf = Lexing.from_channel stdin in

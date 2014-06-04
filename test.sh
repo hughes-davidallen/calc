@@ -21,6 +21,8 @@ evalAndAssertEquals "8/2" "4" "Basic even integer division"
 evalAndAssertEquals "8/3" "2" "Basic rounded integer division"
 evalAndAssertEquals "3*4" "12" "Basic integer multiplication"
 evalAndAssertEquals "-3+8" "5" "Unary minus operator"
+evalAndAssertEquals "4%2" "0" "Basic zero modulus"
+evalAndAssertEquals "4%3" "1" "Basic nonzero modulus"
 
 # Tests to verify the order of operations
 evalAndAssertEquals "3*4+2*7" "26" "Multiply has precedence over add"

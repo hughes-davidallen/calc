@@ -19,5 +19,5 @@ expr:
 | expr TIMES expr         { Binop($1, Mul, $3) }
 | expr DIVIDE expr        { Binop($1, Div, $3) }
 | expr MOD expr           { Binop($1, Mod, $3) }
-| MINUS expr %prec UMINUS { Unop(Neg, $2) }
+| MINUS expr %prec UMINUS { Prefix(Neg, $2) }
 | LITERAL                 { Lit($1) }

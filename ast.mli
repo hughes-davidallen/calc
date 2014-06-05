@@ -1,7 +1,7 @@
 type binop = Add | Sub | Mul | Div | Mod
-type unop = Neg
+type prefix = Neg
 
 type expr =
     Binop of expr * binop * expr
-  | Unop of unop * expr
+  | Prefix of prefix * expr
   | Lit of int

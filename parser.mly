@@ -24,7 +24,7 @@ iexpr:
 | iexpr TIMES iexpr        { Binop($1, Mul, $3) }
 | iexpr DIVIDE iexpr       { Binop($1, Div, $3) }
 | iexpr MOD iexpr          { Binop($1, Mod, $3) }
-| MINUS iexpr %prec UMINUS { Unop(Neg, $2) }
+| MINUS iexpr %prec UMINUS { Prefix(Neg, $2) }
 | INTEGER                  { Integer($1) }
 
 fexpr:

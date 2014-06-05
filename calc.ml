@@ -3,7 +3,7 @@ open Ast
 let rec eval = function
     Integer(x) -> x
   | Float(x) -> x
-  | Unop(op, e1) ->
+  | Prefix(op, e1) ->
       (let v1 = eval e1 in
       match op with
         Neg -> -v1)

@@ -9,13 +9,23 @@
 %nonassoc UMINUS
 
 %start expr
+%type <Ast.iexpr> iexpr
 %type <Ast.expr> expr
 
 %%
 
 expr:
-  iexpr                    { $1 }
-| fexpr                    { $1 }
+  LPAREN expr RPAREN       { $2 }
+| expr PLUS expr           { FPBinop($1, FPAdd, $3) }
+| iexpr PLUS expr          { FPBinop(CoercedFloat($1), FPAdd, $3) }
+| expr MINUS expr          { FPBinop($1, FPSub, $3) }
+| iexpr MINUS expr         { FPBinop(CoercedFloat($1), FPSub, $3) }
+| expr TIMES expr          { FPBinop($1, FPMul, $3) }
+| iexpr TIMES expr         { FPBinop(CoercedFloat($1), FPMul, $3) }
+| expr DIVIDE expr         { FPBinop($1, FPDiv, $3) }
+| iexpr DIVIDE expr        { FPBinop(CoercedFloat($1), FPDiv, $3) }
+| FLOAT                    { Float($1) }
+| iexpr                    { CoercedFloat($1) }
 
 iexpr:
   LPAREN iexpr RPAREN      { $2 }
@@ -26,8 +36,3 @@ iexpr:
 | iexpr MOD iexpr          { Binop($1, Mod, $3) }
 | MINUS iexpr %prec UMINUS { Prefix(Neg, $2) }
 | INTEGER                  { Integer($1) }
-
-fexpr:
-  LPAREN fexpr RPAREN      { $2 }
-| 
-| FLOAT                    { Float($1) }

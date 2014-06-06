@@ -1,7 +1,7 @@
 { open Parser }
 
 let digit = ['0'-'9']
-let fpn = digit+'.'digit+
+let fpn = digit*'.'digit*
 
 rule token =
   parse [' ' '\t' '\r' '\n'] { token lexbuf }

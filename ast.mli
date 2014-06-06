@@ -1,10 +1,13 @@
 type binop = Add | Sub | Mul | Div | Mod
-type fpbinop = FPAdd | FPSub | FPDiv
+type fpbinop = FPAdd | FPSub | FPMul | FPDiv
 type prefix = Neg
 
-type expr =
-    Binop of expr * binop * expr
-  | FPBinop of expr * fpbinop * expr
-  | Prefix of prefix * expr
+type iexpr =
+    Binop of iexpr * binop * iexpr
+  | Prefix of prefix * iexpr
   | Integer of int
+
+type expr =
+    FPBinop of expr * fpbinop * expr
   | Float of float
+  | CoercedFloat of iexpr

@@ -1,6 +1,6 @@
 %{ open Ast %}
 
-%token PLUS MINUS TIMES DIVIDE MOD LPAREN RPAREN EOF
+%token PLUS MINUS TIMES DIVIDE MOD LPAREN RPAREN EOF COMMA
 %token <int> INTEGER
 %token <float> FLOAT
 
@@ -8,12 +8,17 @@
 %left TIMES DIVIDE MOD
 %nonassoc UMINUS
 
-%start expr
+%start seq
+%type <Ast.seq> seq
 %type <Ast.expr> expr
 %type <Ast.iexpr> iexpr
 %type <Ast.fpexpr> fpexpr
 
 %%
+
+seq:
+  expr                      { TSeq($1) }
+| expr COMMA seq            { Seq($1, $3) }
 
 expr:
   iexpr                     { IExpr($1) }

@@ -38,8 +38,14 @@ let eval = function
       let result = fpeval e1 in
       string_of_float result
 
+let rec exec = function
+    TSeq(e1) ->
+      [eval e1]
+  | Seq(e1, s1) ->
+      (eval e1)::(exec s1)
+
 let _ =
   let lexbuf = Lexing.from_channel stdin in
-  let expr = Parser.expr Scanner.token lexbuf in
-  let result = eval expr in
-  print_endline result
+  let seq = Parser.seq Scanner.token lexbuf in
+  let result = exec seq in
+  List.iter (fun res -> print_endline res) result

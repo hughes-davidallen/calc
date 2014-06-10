@@ -12,6 +12,7 @@ rule token =
       | '%'                  { MOD }
       | '('                  { LPAREN }
       | ')'                  { RPAREN }
+      | ','                  { COMMA }
       | fpn as lit           { FLOAT(float_of_string lit) }
       | digit+ as lit        { INTEGER(int_of_string lit) }
       | eof                  { EOF }

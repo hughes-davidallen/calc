@@ -17,3 +17,7 @@ type fpexpr =
 type expr =
     IExpr of iexpr
   | FPExpr of fpexpr
+
+type seq =
+    TSeq of expr
+  | Seq of expr * seq
